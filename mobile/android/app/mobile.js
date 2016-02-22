@@ -196,6 +196,7 @@ pref("extensions.autoupdate.enabled", true);
 pref("extensions.autoupdate.interval", 86400);
 pref("extensions.update.enabled", true);
 pref("extensions.update.interval", 86400);
+pref("lightweightThemes.update.enabled", true);
 pref("extensions.dss.enabled", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
@@ -525,9 +526,6 @@ pref("apz.second_tap_tolerance", "0.3");
 pref("apz.touch_move_tolerance", "0.03");
 pref("apz.touch_start_tolerance", "0.06");
 
-// Enable the Visual Viewport API
-pref("dom.visualviewport.enabled", true);
-
 pref("layers.progressive-paint", true);
 pref("layers.low-precision-buffer", true);
 pref("layers.low-precision-resolution", "0.25");
@@ -540,7 +538,7 @@ pref("layers.low-precision-opacity", "1.0");
 pref("layers.max-active", 20);
 
 // Use containerless scrolling on Fennec.
-pref("layout.scroll.root-frame-containers", false);
+pref("layout.scroll.root-frame-containers", 0);
 
 pref("notification.feature.enabled", true);
 pref("dom.webnotifications.enabled", true);
@@ -551,10 +549,12 @@ pref("browser.chrome.toolbar_tips", false);
 // don't allow meta-refresh when backgrounded
 pref("browser.meta_refresh_when_inactive.disabled", true);
 
-// On mobile we throttle the download once the readahead_limit is hit
-// if we're using a cellular connection, even if the download is slow.
-// This is to preserve battery and data.
-pref("media.throttle-cellular-regardless-of-download-rate", true);
+// prevent video elements from preloading too much data
+pref("media.preload.default", 1); // default to preload none
+pref("media.preload.auto", 2);    // preload metadata if preload=auto
+// On mobile we'll throttle the download once the readahead_limit is hit,
+// even if the download is slow. This is to preserve battery and data.
+pref("media.throttle-regardless-of-download-rate", true);
 
 // Number of video frames we buffer while decoding video.
 // On Android this is decided by a similar value which varies for
@@ -823,17 +823,22 @@ pref("dom.push.maxRecentMessageIDsPerSubscription", 0);
 pref("dom.push.enabled", true);
 #endif
 
+// The local sync service for China Edition
+pref("app.sync.service", "local");
+pref("identity.fxaccounts.remote.webchannel.global.uri", "https://accounts.firefox.com");
+pref("identity.fxaccounts.remote.webchannel.local.uri", "https://accounts.firefox.com.cn");
+
 // The remote content URL where FxAccountsWebChannel messages originate.  Must use HTTPS.
-pref("identity.fxaccounts.remote.webchannel.uri", "https://accounts.firefox.com");
+pref("identity.fxaccounts.remote.webchannel.uri", "https://accounts.firefox.com.cn");
 
 // The remote URL of the Firefox Account profile server.
-pref("identity.fxaccounts.remote.profile.uri", "https://profile.accounts.firefox.com/v1");
+pref("identity.fxaccounts.remote.profile.uri", "https://profile.firefox.com.cn/v1");
 
 // The remote URL of the Firefox Account oauth server.
-pref("identity.fxaccounts.remote.oauth.uri", "https://oauth.accounts.firefox.com/v1");
+pref("identity.fxaccounts.remote.oauth.uri", "https://oauth.firefox.com.cn/v1");
 
 // Token server used by Firefox Account-authenticated Sync.
-pref("identity.sync.tokenserver.uri", "https://token.services.mozilla.com/1.0/sync/1.5");
+pref("identity.sync.tokenserver.uri", "https://sync.firefox.com.cn/token/1.0/sync/1.5");
 
 #ifndef RELEASE_OR_BETA
 // Enable Presentation API on Nightly
@@ -848,7 +853,7 @@ pref("media.block-autoplay-until-in-foreground", false);
 
 // Space separated list of URLS that are allowed to send objects (instead of
 // only strings) through webchannels. This list is duplicated in browser/app/profile/firefox.js
-pref("webchannel.allowObject.urlWhitelist", "https://accounts.firefox.com https://content.cdn.mozilla.net https://support.mozilla.org https://install.mozilla.org");
+pref("webchannel.allowObject.urlWhitelist", "https://accounts.firefox.com.cn https://accounts.firefox.com https://content.cdn.mozilla.net https://input.mozilla.org https://support.mozilla.org https://install.mozilla.org");
 
 pref("media.openUnsupportedTypeWithExternalApp", true);
 
