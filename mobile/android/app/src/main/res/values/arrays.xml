@@ -136,6 +136,14 @@
         <item>wifi</item>
         <item>disabled</item>
     </string-array>
+    <string-array name="pref_sync_service_entries">
+        <item>@string/pref_sync_service_local</item>
+        <item>@string/pref_sync_service_global</item>
+    </string-array>
+    <string-array name="pref_sync_service_values">
+        <item>local</item>
+        <item>global</item>
+    </string-array>
     <!-- browser.image_blocking -->
     <string-array name="pref_browser_image_blocking_entries">
         <item>@string/pref_tap_to_load_images_enabled</item>
