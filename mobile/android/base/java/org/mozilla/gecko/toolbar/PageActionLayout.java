@@ -44,6 +44,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 
 import static org.mozilla.gecko.toolbar.PageActionLayout.PageAction.UUID_PAGE_ACTION_PWA;
+import android.widget.Toast;
 
 public class PageActionLayout extends ThemedLinearLayout
         implements View.OnClickListener, View.OnLongClickListener {
@@ -66,6 +67,18 @@ public class PageActionLayout extends ThemedLinearLayout
     // By default it's two, can be changed by calling setNumberShown(int)
     private int mMaxVisiblePageActions;
     private PwaConfirm mPwaConfirm;
+
+    public void setCompatibleModePageActionDrawable(Drawable d) {
+        for (int i = 0; i < mPageActionList.size(); i++) {
+            if (!mPageActionList.get(i).getTitle().equals("Open Compatible Mode") &&
+                !mPageActionList.get(i).getTitle().equals("打开兼容模式")) {
+                continue;
+            }
+            mPageActionList.get(i).setDrawable(d);
+            refreshPageActionIcons();
+            return;
+        }
+    }
 
     public PageActionLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
