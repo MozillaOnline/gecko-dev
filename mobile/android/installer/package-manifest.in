@@ -508,6 +508,8 @@
 @BINPATH@/components/remotebrowserutils.manifest
 
 [mobile]
+@BINPATH@/components/CMManager.js
+
 @BINPATH@/chrome/geckoview@JAREXT@
 @BINPATH@/chrome/geckoview.manifest
 
