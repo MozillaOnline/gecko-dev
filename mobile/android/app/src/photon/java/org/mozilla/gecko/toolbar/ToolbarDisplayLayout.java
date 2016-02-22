@@ -26,6 +26,7 @@ import org.mozilla.gecko.widget.themed.ThemedLinearLayout;
 import org.mozilla.gecko.widget.themed.ThemedTextView;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.Spannable;
@@ -326,6 +327,11 @@ public class ToolbarDisplayLayout extends ThemedLinearLayout {
 
         // Display full URL with base domain highlighted as title
         updateAndColorTitleFromFullURL(strippedURL, baseDomain, tab.isPrivate());
+    }
+
+    //Add for change Compatible Mode view icon
+    void setCompatibleModePageActionDrawable(Drawable d) {
+        mPageActionLayout.setCompatibleModePageActionDrawable(d);
     }
 
     private void updateAndColorTitleFromFullURL(String url, String baseDomain, boolean isPrivate) {

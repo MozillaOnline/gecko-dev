@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.List;
@@ -64,6 +65,18 @@ public class PageActionLayout extends ThemedLinearLayout implements BundleEventL
     // By default it's two, can be changed by calling setNumberShown(int)
     private int mMaxVisiblePageActions;
     private PwaConfirm mPwaConfirm;
+
+    public void setCompatibleModePageActionDrawable(Drawable d) {
+        for (int i = 0; i < mPageActionList.size(); i++) {
+            if (!mPageActionList.get(i).getTitle().equals("Open Compatible Mode") &&
+                !mPageActionList.get(i).getTitle().equals("打开兼容模式")) {
+                continue;
+            }
+            mPageActionList.get(i).setDrawable(d);
+            refreshPageActionIcons();
+            return;
+        }
+    }
 
     public PageActionLayout(Context context, AttributeSet attrs) {
         super(context, attrs);

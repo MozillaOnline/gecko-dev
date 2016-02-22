@@ -541,6 +541,7 @@ gbjar.sources += ['java/org/mozilla/gecko/' + x for x in [
     'BrowserLocaleManager.java',
     'cleanup/FileCleanupController.java',
     'cleanup/FileCleanupService.java',
+    'compatiblemode/CompatibleModeActivity.java',
     'CustomEditText.java',
     'customtabs/ActionBarPresenter.java',
     'customtabs/CustomTabsActivity.java',
@@ -1402,6 +1403,8 @@ if CONFIG['MOZ_ANDROID_DISTRIBUTION_DIRECTORY']:
     ANDROID_ASSETS_DIRS += [
         '%' + CONFIG['MOZ_ANDROID_DISTRIBUTION_DIRECTORY'] + '/assets',
     ]
+
+'/mobile/android/app/src/photon/res/drawable/ic_menu_compatible_mode.xml',
 
 DEFINES['ANDROID_PACKAGE_NAME'] = CONFIG['ANDROID_PACKAGE_NAME']
 FINAL_TARGET_PP_FILES += ['package-name.txt.in']
