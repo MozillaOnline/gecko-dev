@@ -9,6 +9,7 @@ import org.mozilla.gecko.AppConstants.Versions;
 import org.mozilla.gecko.GeckoProfileDirectories.NoMozillaDirectoryException;
 import org.mozilla.gecko.annotation.RobocopTarget;
 import org.mozilla.gecko.annotation.WrapForJNI;
+import org.mozilla.gecko.compatiblemode.activities.CompatibleModeActivity;
 import org.mozilla.gecko.db.BrowserDB;
 import org.mozilla.gecko.health.HealthRecorder;
 import org.mozilla.gecko.health.SessionInformation;
@@ -121,6 +122,15 @@ public abstract class GeckoApp extends GeckoActivity
     private static final long ONE_DAY_MS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS);
 
     public static final String ACTION_ALERT_CALLBACK       = "org.mozilla.gecko.ALERT_CALLBACK";
+    //Add for open Compatible Mode viewer
+    public void openCompatibleModeViewer(String url) {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(this, CompatibleModeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.setData(uri);
+        startActivity(intent);
+    }
+
     public static final String ACTION_HOMESCREEN_SHORTCUT  = "org.mozilla.gecko.BOOKMARK";
     public static final String ACTION_WEBAPP               = "org.mozilla.gecko.WEBAPP";
     public static final String ACTION_DEBUG                = "org.mozilla.gecko.DEBUG";

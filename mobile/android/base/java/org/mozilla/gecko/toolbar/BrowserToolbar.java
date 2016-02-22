@@ -701,6 +701,10 @@ public abstract class BrowserToolbar extends ThemedRelativeLayout
         urlDisplayLayout.setTitle(title);
     }
 
+    public void setCompatibleModePageActionDrawable() {
+        urlDisplayLayout.setCompatibleModePageActionDrawable(getContext().getResources().getDrawable(R.drawable.compatible_mode_icon_normal));
+    }
+
     public void setOnActivateListener(final OnActivateListener listener) {
         activateListener = listener;
     }
