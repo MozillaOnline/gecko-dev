@@ -30,6 +30,7 @@ import org.mozilla.gecko.widget.themed.ThemedLinearLayout;
 import org.mozilla.gecko.widget.themed.ThemedTextView;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
@@ -356,6 +357,11 @@ public class ToolbarDisplayLayout extends ThemedLinearLayout {
         spannable.setSpan(colorSpan, 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         setTitle(spannable);
+    }
+
+    //Add for change Compatible Mode view icon
+    void setCompatibleModePageActionDrawable(Drawable d) {
+        mPageActionLayout.setCompatibleModePageActionDrawable(d);
     }
 
     private void updateAndColorTitleFromFullURL(String url, String baseDomain, boolean isPrivate) {

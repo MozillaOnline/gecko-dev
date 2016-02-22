@@ -548,6 +548,7 @@ gbjar.sources += ['java/org/mozilla/gecko/' + x for x in [
     'BrowserLocaleManager.java',
     'cleanup/FileCleanupController.java',
     'cleanup/FileCleanupService.java',
+    'compatiblemode/CompatibleModeActivity.java',
     'CustomEditText.java',
     'customtabs/ActionBarPresenter.java',
     'customtabs/CustomTabsActivity.java',
@@ -1418,6 +1419,8 @@ if CONFIG['MOZ_ANDROID_DISTRIBUTION_DIRECTORY']:
         ANDROID_ASSETS_DIRS += [
             '%' + CONFIG['MOZ_ANDROID_DISTRIBUTION_DIRECTORY'] + '/assets',
         ]
+
+'resources/drawable/ic_menu_compatible_mode.xml',
 
 if CONFIG['MOZ_ANDROID_SEARCH_ACTIVITY']:
     # The Search Activity is mostly independent of Fennec proper, but
