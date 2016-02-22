@@ -49,9 +49,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 public class Tabs implements BundleEventListener {
     private static final String LOGTAG = "GeckoTabs";
+    private Context mActivity;
 
     public static final String INTENT_EXTRA_TAB_ID = "TabId";
     public static final String INTENT_EXTRA_SESSION_UUID = "SessionUUID";
@@ -170,6 +170,9 @@ public class Tabs implements BundleEventListener {
             "Tab:RecordingChange",
             "Tab:Select",
             "Tab:SetParentId",
+            "CompatibleMode:Show",
+            "CompatibleMode:Click",
+            "CompatibleMode:Unclick",
             null);
 
         EventDispatcher.getInstance().registerBackgroundThreadListener(this,
@@ -182,6 +185,7 @@ public class Tabs implements BundleEventListener {
 
     public synchronized void attachToContext(Context context, GeckoView geckoView,
                                              EventDispatcher eventDispatcher) {
+        mActivity = context;
         final Context appContext = context.getApplicationContext();
 
         mAppContext = appContext;
@@ -553,6 +557,14 @@ public class Tabs implements BundleEventListener {
             return;
         }
 
+        if (event.equals("CompatibleMode:Show")) {
+            String url = message.getString("uri");
+            if (url != null) {
+              ((GeckoApp)mActivity).openCompatibleModeViewer(url);
+            }
+            return;
+        }
+
         // All other events handled below should contain a tabID property
         final int id = message.getInt("tabID", INVALID_TAB_ID);
         Tab tab = getTab(id);
@@ -704,6 +716,14 @@ public class Tabs implements BundleEventListener {
                 notifyListeners(tab, TabEvents.MEDIA_PLAYING_CHANGE);
             }
 
+        } else if (event.equals("CompatibleMode:Click")) {
+            notifyListeners(tab, TabEvents.COMPATIBLEMODEICON_CHANGED);
+            String url = tab.getURL();
+            if (url != null) {
+              ((GeckoApp)mActivity).openCompatibleModeViewer(url);
+            }
+        } else if (event.equals("CompatibleMode:Unclick")) {
+            notifyListeners(tab, TabEvents.COMPATIBLEMODEICON_CHANGED);
         } else if ("Tab:SetParentId".equals(event)) {
             tab.setParentId(message.getInt("parentID", INVALID_TAB_ID));
         }
@@ -763,8 +783,8 @@ public class Tabs implements BundleEventListener {
         AUDIO_PLAYING_CHANGE,
         OPENED_FROM_TABS_TRAY,
         MEDIA_PLAYING_CHANGE,
-        MEDIA_PLAYING_RESUME,
         START_EDITING,
+        COMPATIBLEMODEICON_CHANGED,
     }
 
     public void notifyListeners(Tab tab, TabEvents msg) {
