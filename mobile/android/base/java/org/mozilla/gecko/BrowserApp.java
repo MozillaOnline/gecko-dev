@@ -211,6 +211,9 @@ public class BrowserApp extends GeckoApp
                                    EditBookmarkCallback {
     private static final String LOGTAG = "GeckoBrowserApp";
 
+    private Boolean mCompatibleMode = false;
+    private static final String PREF_COMPATIBLE_MODE = "compatiblemode.enable";
+
     private static final int TABS_ANIMATION_DURATION = 450;
 
     // Intent String extras used to specify custom Switchboard configurations.
@@ -269,6 +272,7 @@ public class BrowserApp extends GeckoApp
     // show the snapshot causes the content to shift under the users finger.
     // See: Bug 1358554
     private boolean mShowingToolbarChromeForActionBar;
+    private PrefsHelper.PrefHandler mCompatibilityPrefObserver;
 
     private SafeIntent safeStartingIntent;
     private Intent startingIntentAfterPip;
@@ -430,6 +434,9 @@ public class BrowserApp extends GeckoApp
                 break;
             case START_EDITING:
                 enterEditingMode();
+                break;
+            case COMPATIBLEMODEICON_CHANGED:
+                setCompatibleModePageActionDrawable();
                 break;
         }
 
@@ -634,6 +641,26 @@ public class BrowserApp extends GeckoApp
 
         safeStartingIntent = new SafeIntent(getIntent());
         isInAutomation = IntentUtils.getIsInAutomationFromEnvironment(safeStartingIntent);
+        mCompatibilityPrefObserver = new PrefsHelper.PrefHandlerBase() {
+            @Override
+            public void prefValue(String pref, int value) {
+                boolean newValue = value == 1;
+                if (mCompatibleMode == newValue) {
+                    return;
+                }
+                mCompatibleMode = newValue;
+                ThreadUtils.postToUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Tab tab = Tabs.getInstance().getSelectedTab();
+                        if (tab != null) {
+                            tab.doReload(false);
+                        }
+                    }
+                });
+            }
+        };
+        PrefsHelper.addObserver(new String[] { PREF_COMPATIBLE_MODE }, mCompatibilityPrefObserver);
 
         GeckoProfile.setIntentArgs(safeStartingIntent.getStringExtra("args"));
 
@@ -1614,6 +1641,7 @@ public class BrowserApp extends GeckoApp
 
         MmaDelegate.flushResources(this);
 
+        PrefsHelper.removeObserver(mCompatibilityPrefObserver);
         super.onDestroy();
     }
 
@@ -2540,6 +2568,10 @@ public class BrowserApp extends GeckoApp
         }
     }
 
+    public void setCompatibleModePageActionDrawable() {
+        mBrowserToolbar.setCompatibleModePageActionDrawable();
+    }
+
     private void loadUrlOrKeywordSearch(final String url) {
         // Don't do anything if the user entered an empty URL.
         if (TextUtils.isEmpty(url)) {
@@ -3171,6 +3203,9 @@ public class BrowserApp extends GeckoApp
         if (aMenu == null)
             return false;
 
+        MenuItem compatibleMode = aMenu.findItem(R.id.compatible_mode);
+        compatibleMode.setChecked(mCompatibleMode);
+
         // Hide the tab history panel when hardware menu button is pressed.
         dismissTabHistoryFragment();
 
@@ -3684,6 +3719,12 @@ public class BrowserApp extends GeckoApp
 
         if (itemId == R.id.exit_guest_session) {
             showGuestModeDialog(GuestModeDialog.LEAVING);
+            return true;
+        }
+
+        if (itemId == R.id.compatible_mode) {
+            // Toggle compatible mode.
+            PrefsHelper.setPref(PREF_COMPATIBLE_MODE, mCompatibleMode ? 2 : 1);
             return true;
         }
 
