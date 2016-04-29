@@ -527,6 +527,11 @@ public class BrowserApp extends GeckoApp
             case COMPATIBLEMODEICON_CHANGED:
                 setCompatibleModePageActionDrawable();
                 break;
+            case GO_HOME:
+                final SharedPreferences prefs = GeckoSharedPrefs.forProfile(this);
+                String url = prefs.getString(GeckoPreferences.PREFS_HOMEPAGE, AboutPages.CHINAHOME);
+                Tabs.getInstance().loadUrl(url, Tabs.LOADURL_USER_ENTERED);
+                break;
         }
 
         if (HardwareUtils.isTablet() && msg == TabEvents.SELECTED) {
