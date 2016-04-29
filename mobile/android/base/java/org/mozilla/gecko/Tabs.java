@@ -178,6 +178,7 @@ public class Tabs implements BundleEventListener {
             "CompatibleMode:Show",
             "CompatibleMode:Click",
             "CompatibleMode:Unclick",
+            "Tab:GoHome",
             null);
 
         EventDispatcher.getInstance().registerBackgroundThreadListener(this,
@@ -739,6 +740,8 @@ public class Tabs implements BundleEventListener {
             }
         } else if (event.equals("CompatibleMode:Unclick")) {
             notifyListeners(tab, TabEvents.COMPATIBLEMODEICON_CHANGED);
+        } else if (event.equals("Tab:GoHome")) {
+            notifyListeners(tab, TabEvents.GO_HOME);
         } else if ("Tab:SetParentId".equals(event)) {
             tab.setParentId(message.getInt("parentID", INVALID_TAB_ID));
         }
@@ -801,7 +804,8 @@ public class Tabs implements BundleEventListener {
         MEDIA_PLAYING_CHANGE,
         MEDIA_PLAYING_RESUME,
         START_EDITING,
-        COMPATIBLEMODEICON_CHANGED
+        COMPATIBLEMODEICON_CHANGED,
+        GO_HOME
     }
 
     public void notifyListeners(Tab tab, TabEvents msg) {
@@ -1351,7 +1355,7 @@ public class Tabs implements BundleEventListener {
     @NonNull
     private static String getHomepageForNewTab(Context context) {
         final SharedPreferences preferences = GeckoSharedPrefs.forApp(context);
-        final boolean forEveryNewTab = preferences.getBoolean(GeckoPreferences.PREFS_HOMEPAGE_FOR_EVERY_NEW_TAB, false);
+        final boolean forEveryNewTab = preferences.getBoolean(GeckoPreferences.PREFS_HOMEPAGE_FOR_EVERY_NEW_TAB, true);
 
         return forEveryNewTab ? getHomepageForStartupTab(context) : AboutPages.HOME;
     }
@@ -1362,13 +1366,13 @@ public class Tabs implements BundleEventListener {
     @NonNull
     public static String getHomepageForStartupTab(Context context) {
         final String homepage = Tabs.getHomepage(context);
-        return TextUtils.isEmpty(homepage) ? AboutPages.HOME : homepage;
+        return TextUtils.isEmpty(homepage) ? AboutPages.CHINAHOME : homepage;
     }
 
     @Nullable
     public static String getHomepage(Context context) {
         final SharedPreferences preferences = GeckoSharedPrefs.forProfile(context);
-        final String homepagePreference = preferences.getString(GeckoPreferences.PREFS_HOMEPAGE, AboutPages.HOME);
+        final String homepagePreference = preferences.getString(GeckoPreferences.PREFS_HOMEPAGE, AboutPages.CHINAHOME);
 
         final boolean readFromPartnerProvider = preferences.getBoolean(
                 GeckoPreferences.PREFS_READ_PARTNER_CUSTOMIZATIONS_PROVIDER, false);
