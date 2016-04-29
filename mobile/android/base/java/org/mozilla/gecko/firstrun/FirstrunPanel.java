@@ -25,8 +25,8 @@ import org.mozilla.gecko.TelemetryContract;
  */
 public class FirstrunPanel extends Fragment {
 
-    protected boolean showBrowserHint = true;
     public static final String NO_MESSAGE = "";
+    protected boolean showBrowserHint = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
