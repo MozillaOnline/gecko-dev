@@ -29,8 +29,8 @@ import org.mozilla.gecko.fxa.activities.FxAccountWebFlowActivity;
  */
 public class FirstrunPanel extends Fragment {
 
-    protected boolean showBrowserHint = true;
     public static final String NO_MESSAGE = "";
+    protected boolean showBrowserHint = false;
 
     //Default FxA entrypoint
     protected String entrypoint = FxAccountConstants.ENDPOINT_FIRSTRUN;
