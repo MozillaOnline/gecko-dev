@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -945,6 +946,30 @@ public class BrowserApp extends GeckoApp
         mReadingListHelper = new ReadingListHelper(appContext, profile);
         mAccountsHelper = new AccountsHelper(appContext, profile);
         mExtensionPermissionsHelper = new ExtensionPermissionsHelper(this);
+
+        //Pin suggestedSites
+        String PREFS_SUGGESTED_SITES_PINNED = "suggested.sites.pinned";
+        final SharedPreferences prefs = GeckoSharedPrefs.forApp(this);
+        final ContentResolver cr = getContentResolver();
+        if(!prefs.getBoolean(PREFS_SUGGESTED_SITES_PINNED, false)) {
+            ThreadUtils.postToBackgroundThread(new Runnable() {
+                @Override
+                public void run() {
+                    int DEFAULT_LIMIT = 6;
+                    Cursor c = suggestedSites.get(DEFAULT_LIMIT);
+                    c.moveToPosition(-1);
+                    // We should have cached results after the get() call.
+                    while (c.moveToNext()) {
+                    db.pinSite(cr,
+                        c.getString(c.getColumnIndexOrThrow(BrowserContract.SuggestedSites.URL)),
+                        c.getString(c.getColumnIndexOrThrow(BrowserContract.SuggestedSites.TITLE)),
+                        c.getPosition());
+                    }
+                    c.close();
+                }
+            });
+            prefs.edit().putBoolean(PREFS_SUGGESTED_SITES_PINNED, true).apply();
+        }
 
         if (AppConstants.MOZ_ANDROID_BEAM) {
             NfcAdapter nfc = NfcAdapter.getDefaultAdapter(this);
