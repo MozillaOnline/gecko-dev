@@ -5606,9 +5606,10 @@ pref("urlclassifier.malwareTable", "goog-malware-proto,goog-unwanted-proto,test-
 #ifdef MOZILLA_OFFICIAL
 // In official builds, we are allowed to use Google's private phishing
 // list (see bug 1288840).
-pref("urlclassifier.phishTable", "goog-phish-proto,test-phish-simple");
+pref("urlclassifier.phishTable", "goog-phish-proto,test-phish-simple,aqksb-phish-shavar,m6eb-phish-shavar");
+
 #else
-pref("urlclassifier.phishTable", "googpub-phish-proto,test-phish-simple");
+pref("urlclassifier.phishTable", "googpub-phish-proto,test-phish-simple,aqksb-phish-shavar,m6eb-phish-shavar");
 #endif
 
 // Tables for application reputation
@@ -5697,6 +5698,10 @@ pref("browser.safebrowsing.provider.google4.dataSharingURL", "https://safebrowsi
 pref("browser.safebrowsing.provider.google4.dataSharing.enabled", false);
 
 pref("browser.safebrowsing.reportPhishURL", "https://%LOCALE%.phish-report.mozilla.com/?hl=%LOCALE%&url=");
+
+pref("browser.safebrowsing.provider.mozcn.lists", "aqksb-phish-shavar,m6eb-phish-shavar");
+pref("browser.safebrowsing.provider.mozcn.updateURL", "https://sb.firefox.com.cn/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2");
+pref("browser.safebrowsing.provider.mozcn.gethashURL", "https://sb.firefox.com.cn/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2");
 
 // Mozilla Safe Browsing provider (for tracking protection and plugin blocking)
 pref("browser.safebrowsing.provider.mozilla.pver", "2.2");
