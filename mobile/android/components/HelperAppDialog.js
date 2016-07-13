@@ -17,6 +17,7 @@ const URI_GENERIC_ICON_DOWNLOAD = "drawable://alert_download";
 
 const {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
 
+
 XPCOMUtils.defineLazyModuleGetters(this, {
   Downloads: "resource://gre/modules/Downloads.jsm",
   EventDispatcher: "resource://gre/modules/Messaging.jsm",
@@ -27,6 +28,7 @@ XPCOMUtils.defineLazyModuleGetters(this, {
   Services: "resource://gre/modules/Services.jsm",
   Snackbars: "resource://gre/modules/Snackbars.jsm",
 });
+ChromeUtils.defineModuleGetter(this, "Prompt", "resource://gre/modules/Prompt.jsm");
 
 // -----------------------------------------------------------------------
 // HelperApp Launcher Dialog
@@ -127,12 +129,7 @@ HelperAppLauncherDialog.prototype = {
     ].includes(mimeType);
   },
 
-  show: function hald_show(aLauncher, aContext, aReason) {
-    if (!this._canDownload(aLauncher.source)) {
-      this._refuseDownload(aLauncher);
-      return;
-    }
-
+  _show: function(aLauncher, aContext, aReason) {
     if (this._shouldForwardToAndroidDownloadManager(aLauncher)) {
       (async () => {
         try {
@@ -239,6 +236,31 @@ HelperAppLauncherDialog.prototype = {
    */
   _useNewButtonOrder: function() {
     return Services.sysinfo.getPropertyAsUint32("version") >= 21;
+  },
+
+  show: function hald_show(aLauncher, aContext, aReason) {
+    if (!this._canDownload(aLauncher.source)) {
+      this._refuseDownload(aLauncher);
+      return;
+    }
+
+    let bundle = Services.strings.createBundle("chrome://browser/locale/browser.properties");
+    let url = aLauncher.source.specIgnoringRef.split("/");
+    new Prompt({
+      title: bundle.GetStringFromName("helperapps.saveToDisk"),
+      message: bundle.formatStringFromName("helperapps.downloadPromission", [decodeURIComponent(url[url.length - 1])], 1),
+      buttons: [
+        // This puts Cancel on the right.
+        bundle.GetStringFromName("helperapps.saveToDisk"),
+        bundle.GetStringFromName("helperapps.ignore"),
+      ],
+    }).show(data => {
+      if (data.button != 0 ) {
+	aLauncher.cancel(Cr.NS_BINDING_ABORTED);
+        return;
+      }
+      this._show(aLauncher, aContext, aReason);
+    });
   },
 
   _refuseDownload: function(aLauncher) {
