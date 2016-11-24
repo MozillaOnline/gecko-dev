@@ -149,11 +149,13 @@ android {
 
             assets {
             }
+            jniLibs.srcDirs = ["${topsrcdir}/mobile/android/thirdparty/baidu-geolocation-libs/libs"]
         }
     }
 }
 
 dependencies {
+    compile files ("${topsrcdir}/mobile/android/thirdparty/baidu-geolocation-libs/BaiduLBS_Android.jar")
     compile "com.android.support:support-v4:${mozconfig.substs.ANDROID_SUPPORT_LIBRARY_VERSION}"
     compile "com.android.support:palette-v7:${mozconfig.substs.ANDROID_SUPPORT_LIBRARY_VERSION}"
 }

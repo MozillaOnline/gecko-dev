@@ -21,6 +21,7 @@
      we can merge the permission declaration back. See Bug 1411809.
  -->
 #include FennecManifest_permissions.xml.in
+#include ../thirdparty/baidu-geolocation-libs/manifests/BaiduGeolocation_permissions.xml.in
 
     <application android:label="@string/moz_app_displayname"
                  android:icon="@drawable/icon"
@@ -287,6 +288,7 @@
             </intent-filter>
         </receiver>
 
+#include ../thirdparty/baidu-geolocation-libs/manifests/BaiduGeolocation_services.xml.in
 #include ../services/manifests/FxAccountAndroidManifest_activities.xml.in
 
 #ifdef MOZ_CRASHREPORTER
