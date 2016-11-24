@@ -185,7 +185,9 @@ $(FENNEC_JARS): .gradle.deps
 
 endif # MOZ_BUILD_MOBILE_ANDROID_WITH_GRADLE
 
+GECKOVIEW_JARS += $(topsrcdir)/mobile/android/thirdparty/baidu-geolocation-libs/BaiduLBS_Android.jar
 geckoview_jars_classpath := $(subst $(NULL) ,:,$(strip $(GECKOVIEW_JARS)))
+
 
 # All the jars we're compiling from source. (not to be confused with
 # java_bundled_libs, which holds the jars which we're including as binaries).
