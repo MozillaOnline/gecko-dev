@@ -34,6 +34,9 @@
           android:title="@string/share"
           android:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/addons"
+          android:title="@string/addons"/>
+
     <item android:id="@+id/new_tab"
           android:title="@string/new_tab"/>
 
@@ -41,31 +44,36 @@
           android:title="@string/new_private_tab"/>
 
     <item android:id="@+id/bookmarks_list"
-          android:title="@string/bookmarks_title"/>
+          android:title="@string/bookmarks_history_title"/>
 
     <item android:id="@+id/history_list"
-          android:title="@string/history_title"/>
-
-    <item android:id="@+id/find_in_page"
-          android:title="@string/find_in_page" />
-
-    <item android:id="@+id/desktop_mode"
-          android:title="@string/desktop_mode"
+          android:title="@string/history_title"/>_mode"
           android:checkable="true" />
 
     <item android:id="@+id/addons_top_level"
-          android:title="@string/addons"
-          android:visible="false" />
-
-    <item android:id="@+id/compatible_mode"
-          android:icon="@drawable/ic_menu_compatible_mode"
-          android:title="@string/compatible_mode"
+          android:title="@string/
+ />
+    <item android:id="@+downloadsnloads"
+          android:title="@string/downlo_mode"
+          android:checkable="true" />
           android:checkable="true" />
 
     <item android:id="@+id/page"
           android:title="@string/page">
 
         <menu>
+
+            <item android:id="@+id/find_in_page"
+                  android:title="@string/find_in_page" />
+
+            <item android:id="@+id/desktop_mode"
+                  android:title="@string/desktop_mode"
+                  android:checkable="true" />
+
+            <item android:id="@+id/compatible_mode"
+                  android:icon="@drawable/ic_menu_compatible_mode"
+                  android:title="@string/compatible_mode"
+                  android:checkable="true" />
 
             <item android:id="@+id/subscribe"
                   android:title="@string/contextmenu_subscribe"/>
@@ -83,22 +91,15 @@
                   android:title="@string/contextmenu_add_to_launcher"/>
 
             <item android:id="@+id/set_as_homepage"
-                  android:title="@string/contextmenu_set_as_homepage"/>
+                  android:title="@string/contextmenu_set_as_h   page"/>
 
         </menu>
 
     </item>
 
     <item android:id="@+id/tools"
-          android:title="@string/tools">
+          android:te=			"@string/addons"/>
 
-        <menu>
-
-            <item android:id="@+id/downloads"
-                  android:title="@string/downloads"/>
-
-            <item android:id="@+id/addons"
-                  android:title="@string/addons"/>
 
             <item android:id="@+id/logins"
                   android:title="@string/logins"/>

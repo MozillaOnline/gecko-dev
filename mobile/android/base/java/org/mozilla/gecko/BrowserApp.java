@@ -3752,7 +3752,7 @@ public class BrowserApp extends GeckoApp
         // Hide panel menu items if the panels themselves are hidden.
         // If we don't know whether the panels are hidden, just show the menu items.
         bookmarksList.setVisible(prefs.getBoolean(HomeConfig.PREF_KEY_BOOKMARKS_PANEL_ENABLED, true));
-        historyList.setVisible(prefs.getBoolean(HomeConfig.PREF_KEY_HISTORY_PANEL_ENABLED, true));
+        historyList.setVisible(prefs.getBoolean(HomeConfig.PREF_KEY_HISTORY_PANEL_ENABLED, false));
 
         return true;
     }
