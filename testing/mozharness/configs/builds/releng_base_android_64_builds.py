@@ -124,6 +124,7 @@ config = {
                       'ant', 'ant-apache-regexp'
                       ],
     'src_mozconfig': 'mobile/android/config/mozconfigs/android/nightly',
+    'tooltool_manifest_src': "mobile/android/config/tooltool-manifests/android/releng.manifest",
     #########################################################################
 
     # It's not obvious, but postflight_build is after packaging, so the Gecko
