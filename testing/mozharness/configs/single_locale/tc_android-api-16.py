@@ -20,6 +20,7 @@ config = {
     "upload_env": {
         'UPLOAD_PATH': '/builds/worker/artifacts/',
     },
+
     'secret_files': [
         {'filename': '/builds/gls-gapi.data',
          'secret_name': 'project/releng/gecko/build/level-%(scm-level)s/gls-gapi.data',
@@ -56,4 +57,5 @@ config = {
          'min_scm_level': 2, 'default-file': '{abs_mozilla_dir}/mobile/android/base/pocket-api-sandbox.token'},
 
     ],
+    "update_gecko_source_to_enUS": False,
 }
