@@ -48,4 +48,5 @@ config = {
          'min_scm_level': 2, 'default': 'try-build-has-no-secrets'},
 
     ],
+    "update_gecko_source_to_enUS": False,
 }
