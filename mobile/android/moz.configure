@@ -108,18 +108,14 @@ option(env='MOZ_ANDROID_MOZILLA_ONLINE',
 set_config('MOZ_ANDROID_MOZILLA_ONLINE',
            depends_if('MOZ_ANDROID_MOZILLA_ONLINE')(lambda _: True))
 
-option(env='FENNEC_NIGHTLY',
-       help='Enable experimental code for Fennec Nightly users. NOTE: This is *not* equivalent '
-            'to the NIGHTLY_BUILD flag set during configure.',
+
+
+option(env='MOZ_ANDROID_PACKAGE_INSTALL_BOUNCER',
+       help='Build and package the install bouncer APK',
        default=False)
 
-set_config('FENNEC_NIGHTLY', depends_if('FENNEC_NIGHTLY')(lambda _: True))
-set_define('FENNEC_NIGHTLY', depends_if('FENNEC_NIGHTLY')(lambda _: True))
-
-
-@depends('FENNEC_NIGHTLY')
-def fennec_nightly(nightly):
-    return bool(nightly)
+set_config('MOZ_ANDROID_PACKAGE_INSTALL_BOUNCER',
+           depends_if('MOZ_ANDROID_PACKAGE_INSTALL_BOUNCER')(lambda _: False))
 
 option(env='FENNEC_BETA',
        help='Flag indicating that this build is a Beta build.'
@@ -194,4 +190,5 @@ def check_android_gcm(android_gcm,
     if android_gcm:
         if not google_play_services:
             die('You must specify --with-google-play-services when'
-                ' building with MOZ_ANDROID_GCM=1')
+' building with MOZ_ANDROID_GCM=1')
+
