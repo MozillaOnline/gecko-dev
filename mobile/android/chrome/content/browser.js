@@ -3510,22 +3510,15 @@ nsBrowserAccess.prototype = {
     // OPEN_CURRENTWINDOW and illegal values
     let browser = BrowserApp.selectedBrowser;
     if (aURI && browser) {
-      //browser.loadURIWithFlags(aURI.spec, {
-      //  flags: loadflags,
-      //  referrerURI: referrer,
-      //  triggeringPrincipal: aTriggeringPrincipal,
-      //});
-
-     //support compatible //modify by lynn
-	 Reader.clearPageAction();
-     if (!BrowserApp.loadURIWithCompatibleMode(aURI.spec)) {
-       browser.loadURIWithFlags(aURI.spec, loadflags, referrer, null, null);
-     } else {
-       let oldUrl = browser.currentURI.spec;
-       if (oldUrl.startsWith("about:")) {
-         browser.loadURIWithFlags(oldUrl, loadflags, referrer, null, null);
-       }
-     }
+       Reader.clearPageAction();
+      if (!BrowserApp.loadURIWithCompatibleMode(aURI.spec)) {
+        browser.loadURIWithFlags(aURI.spec, loadflags, referrer, null, null);
+      } else {
+        let oldUrl = browser.currentURI.spec;
+        if (oldUrl.startsWith("about:")) {
+          browser.loadURIWithFlags(oldUrl, loadflags, referrer, null, null);
+        }
+      }
     }
 
     return browser;
@@ -5388,7 +5381,7 @@ var FormAssistant = {
     let currentElement = aElement;
     while (currentElement) {
       if(currentElement.disabled)
-	return true;
+  return true;
 
       currentElement = currentElement.parentElement;
     }

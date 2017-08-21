@@ -4,6 +4,16 @@
 
 -keepattributes *Annotation*
 
+#baidusdk
+-keepattributes EnclosingMethod
+-keepattributes InnerClasses
+-ignorewarnings
+-dontoptimize
+-dontnote com.baidu.**
+-dontwarn com.baidu.**
+-keep class com.baidu.** {*;}
+-keep class vi.com.** {*;}
+
 # Preserve all public classes, and their public and protected fields and
 # methods.
 

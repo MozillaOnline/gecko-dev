@@ -37,6 +37,10 @@
     <item android:id="@+id/addons"
           android:title="@string/addons"/>
 
+    <item android:id="@+id/addons_top_level"
+          android:title="@string/addons"
+          android:visible="false" />
+
     <item android:id="@+id/new_tab"
           android:title="@string/new_tab"/>
 
@@ -48,7 +52,7 @@
 
     <item android:id="@+id/history_list"
           android:title="@string/history_title"/>
-
+          
     <item android:id="@+id/downloads"
           android:title="@string/downloads"/>
 
@@ -90,8 +94,8 @@
 
     <item android:id="@+id/tools"
           android:title="@string/tools">
-
-        <menu>
+        
+          <menu>
 
             <item android:id="@+id/logins"
                   android:title="@string/logins"/>

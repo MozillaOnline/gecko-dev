@@ -145,9 +145,9 @@ def check_install_tracking(install_tracking,
         if not native_devices:
             die('You must specify MOZ_NATIVE_DEVICES=1 when'
                 ' building with MOZ_INSTALL_TRACKING=1')
-        if not adjust_sdk_keyfile:
-            die('You must specify --with-adjust-sdk-keyfile=/path/to/keyfile when'
-                ' building with MOZ_INSTALL_TRACKING=1')
+        #if not adjust_sdk_keyfile:
+        #    die('You must specify --with-adjust-sdk-keyfile=/path/to/keyfile when'
+        #        ' building with MOZ_INSTALL_TRACKING=1')
 
 # Must come after the ../../toolkit/moz.configure.
 @depends('MOZ_ANDROID_MMA',
