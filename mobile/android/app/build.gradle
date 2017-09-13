@@ -122,6 +122,7 @@ android {
 
     sourceSets {
         main {
+
             aidl {
                 srcDir "${topsrcdir}/mobile/android/base/aidl"
             }

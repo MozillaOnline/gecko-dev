@@ -48,7 +48,7 @@ classes.dex: $(JAVAFILES)
 	$(JAVAC) $(JAVAC_FLAGS) -d classes $(filter %.java,$^) \
 		$(addprefix -bootclasspath ,$(call classpath_template,$(default_bootclasspath_jars) $(ANDROID_BOOTCLASSPATH_JARS))) \
 		$(addprefix -classpath ,$(call classpath_template,$(default_classpath_jars) $(ANDROID_CLASSPATH_JARS) $(ANDROID_EXTRA_JARS)))
-	$(DX) --dex --output=$@ classes $(ANDROID_EXTRA_JARS)
+	$(DX) -JXmx2048m --dex --output=$@ classes $(ANDROID_EXTRA_JARS)
 
 # R.java and $(ANDROID_APK_NAME).ap_ are both produced by aapt.  To
 # save an aapt invocation, we produce them both at the same time.  The
