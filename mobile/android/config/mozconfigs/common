@@ -98,15 +98,15 @@ ac_add_options --without-leanplum-sdk-keyfile
 # keyfile set, so if we misconfigure beta or release or nightly, the builds will
 # fail (at configure time).
 # Otherwise, Pocket is not a critical component so it can be built with a dummy key.
-if test "$MOZ_UPDATE_CHANNEL" = "release" ; then
-    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-release.token
-elif test "$MOZ_UPDATE_CHANNEL" = "beta" ; then
-    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-beta.token
-elif test "$MOZ_UPDATE_CHANNEL" = "nightly" ; then
-    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-nightly.token
-else
-    ac_add_options --with-pocket-api-keyfile="$topsrcdir/mobile/android/base/pocket-api-sandbox.token"
-fi
+#if test "$MOZ_UPDATE_CHANNEL" = "release" ; then
+#    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-release.token
+#elif test "$MOZ_UPDATE_CHANNEL" = "beta" ; then
+#    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-beta.token
+#elif test "$MOZ_UPDATE_CHANNEL" = "nightly" ; then
+#    ac_add_options --with-pocket-api-keyfile=/builds/pocket-api-nightly.token
+#else
+#    ac_add_options --with-pocket-api-keyfile="$topsrcdir/mobile/android/base/pocket-api-sandbox.token"
+#fi
 
 # Package js shell.
 export MOZ_PACKAGE_JSSHELL=1
