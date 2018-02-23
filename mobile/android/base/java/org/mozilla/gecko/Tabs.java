@@ -786,6 +786,7 @@ public class Tabs implements BundleEventListener {
         AUDIO_PLAYING_CHANGE,
         OPENED_FROM_TABS_TRAY,
         MEDIA_PLAYING_CHANGE,
+        MEDIA_PLAYING_RESUME,
         START_EDITING,
         COMPATIBLEMODEICON_CHANGED,
         GO_HOME,
