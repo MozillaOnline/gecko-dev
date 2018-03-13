@@ -62,10 +62,12 @@
 #include "nsContentUtils.h"
 #include "nsExceptionHandler.h"
 
+using mozilla::Maybe;
+
 namespace mozilla {
 namespace net {
 
-using mozilla::Maybe;
+
 using mozilla::dom::ClientInfo;
 using mozilla::dom::ServiceWorkerDescriptor;
 
