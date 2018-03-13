@@ -222,6 +222,7 @@ dependencies {
 
     implementation "android.arch.lifecycle:extensions:$lifecycle_library_version"
     implementation "android.arch.lifecycle:common-java8:$lifecycle_library_version"
+    implementation files('../thirdparty/baidu-geolocation-libs/BaiduLBS_Android.jar')
 
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation 'junit:junit:4.12'
