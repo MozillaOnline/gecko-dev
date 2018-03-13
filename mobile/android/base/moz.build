@@ -152,6 +152,7 @@ crash_reporter_constants.inputs += ['/toolkit/crashreporter/CrashAnnotations.yam
 # multi-locale builds and single-locale repacks).  Make target magic ensures
 # that res/{values,raw}-AB-rCD is not written for regular en-US builds.
 
+
 for f in ['res/raw/suggestedsites.json',
           'res/raw{AB_rCD}/suggestedsites.json']:
     LOCALIZED_GENERATED_FILES += [f]
@@ -222,3 +223,4 @@ GENERATED_FILES[t].inputs += generated_inputs
 # config/faster/rules.mk.  None of these files appear in package-manifest.in,
 # so they're not packaged.
 FINAL_TARGET_FILES.android += generated_inputs
+
