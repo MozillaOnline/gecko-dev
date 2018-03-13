@@ -6,6 +6,8 @@
 # find and create .mozconfig files and to generate targets.
 .NOTPARALLEL:
 
+
+
 include $(topsrcdir)/config/AB_rCD.mk
 
 GECKOVIEW_JARS += $(topsrcdir)/mobile/android/thirdparty/baidu-geolocation-libs/BaiduLBS_Android.jar
