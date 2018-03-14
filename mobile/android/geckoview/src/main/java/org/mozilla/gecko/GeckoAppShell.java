@@ -377,6 +377,7 @@ public class GeckoAppShell {
             getLocationListener().onLocationChanged(mLocation);
           }
 
+         @Override
           public void onConnectHotSpotMessage(String s, int i) {
           }
         });
