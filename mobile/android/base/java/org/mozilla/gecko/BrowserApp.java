@@ -882,7 +882,7 @@ public class BrowserApp extends GeckoApp
         String PREFS_SUGGESTED_SITES_PINNED = "suggested.sites.pinned";
         final SharedPreferences prefs = GeckoSharedPrefs.forApp(this);
         final ContentResolver cr = getContentResolver();
-        if(!prefs.getBoolean(PREFS_SUGGESTED_SITES_PINNED, false)) {
+        if (!prefs.getBoolean(PREFS_SUGGESTED_SITES_PINNED, false)) {
             ThreadUtils.postToBackgroundThread(new Runnable() {
                 @Override
                 public void run() {
