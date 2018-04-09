@@ -89,7 +89,7 @@ public class UpdateServiceHelper {
         public String toString() {
             return "uri = " + uri + ", buildID = " + buildID + ", hashFunction = " + hashFunction + ", hashValue = " + hashValue + ", size = " + size;
         }
-	}
+    }
     static {
             CN_UPDATE_URL = "https://aus2.mozilla.com.cn/update/4/" + AppConstants.MOZ_APP_BASENAME + "/" +
                         AppConstants.MOZ_APP_VERSION         +

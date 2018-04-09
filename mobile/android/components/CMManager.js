@@ -2,16 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://gre/modules/Services.jsm");
-Cu.importGlobalProperties(["XMLHttpRequest"]);
+var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+//Cu.importGlobalProperties(["XMLHttpRequest"]);
 
 function CMManager() {}
 
 CMManager.prototype = {
 
   classID: Components.ID("{e1d56432-2d24-4a72-870b-8e98027866f3}"),
-  QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver,
+  QueryInterface: ChromeUtils.generateQI([Ci.nsIObserver,
                                          Ci.nsIWebProgressListener,
                                          Ci.nsISupportsWeakReference]),
 
@@ -64,8 +64,8 @@ CMManager.prototype = {
     }
 
     // Get the tracking ID and create it if not exists,
-    this._trackingId = this._prefBranch.getCharPref("cmmanagerId",null);
-    if(!this._trackingId){
+    this._trackingId = this._prefBranch.getCharPref("cmmanagerId", null);
+    if (!this._trackingId) {
       this._trackingId = Date.now().toString() + Math.random().toString();
       this._prefBranch.setCharPref("cmmanagerId", this._trackingId);
     }
@@ -213,7 +213,7 @@ CMManager.prototype = {
 
   onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus) {
     throw "Unexpected onLocationChange";
-  }
+  },
 }; // end of CMManager implementation
 
 var StringUtils = {
@@ -234,7 +234,7 @@ var StringUtils = {
       }
       return arg;
     });
-  }
+  },
 };
 
 this.NSGetFactory = XPCOMUtils.generateNSGetFactory([CMManager]);
