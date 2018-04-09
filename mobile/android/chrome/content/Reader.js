@@ -194,7 +194,7 @@ var Reader = {
       this.pageAction.homeButtonCallback = function(tabID) {
         Messaging.sendRequest({
             type: "Tab:GoHome",
-            tabID: tabID
+            tabID: tabID,
         });
         BrowserApp.sendTrackData("PressHomeButton");
       };
@@ -202,7 +202,7 @@ var Reader = {
         title: Strings.browser.GetStringFromName("homeButton.enter"),
         icon: "drawable://home_button",
         clickCallback: () => this.pageAction.homeButtonCallback(tab.id),
-        important: true
+        important: true,
       });
       this._pageActionIds.push(homeButtonId);
     }
@@ -224,7 +224,7 @@ var Reader = {
     let isEnabled = Services.prefs.getIntPref("compatiblemode.enable");
     if (isEnabled == 1 &&
         !browser.currentURI.spec.startsWith("about:") &&
-        browser.currentURI.spec.indexOf("firefox") < 0) {
+        browser.currentURI.spec.includes("firefox") < 0) {
       // Add for compatibleMode mode
       // if browser.currentURI.spec in compatibleMode list
       let compatibleModeURL = "drawable://compatible_mode_icon_normal";
@@ -236,7 +236,7 @@ var Reader = {
         this.pageAction.compatibleModeCallback = function(tabID) {
           GlobalEventDispatcher.sendRequest({
                 type: "CompatibleMode:Click",
-                tabID: tabID
+                tabID: tabID,
           });
           BrowserApp.sendTrackData("PressIcon", browser.currentURI.spec);
         };
@@ -256,21 +256,21 @@ var Reader = {
             callback: function(aChecked) {
               Messaging.sendRequest({
                 type: "CompatibleMode:Unclick",
-                tabID: tab.id
+                tabID: tab.id,
               });
               BrowserApp.sendTrackData("CustomPressNo");
-            }
+            },
           },
           {
             label: strings.GetStringFromName("compatibleMode.allow"),
             callback: function(aChecked) {
               Messaging.sendRequest({
                 type: "CompatibleMode:Click",
-                tabID: tab.id
+                tabID: tab.id,
               });
               BrowserApp.sendTrackData("CustomPressYes", browser.currentURI.spec);
             },
-            positive: true
+            positive: true,
           }];
 
         let options = {};
@@ -278,7 +278,7 @@ var Reader = {
         BrowserApp.sendTrackData("CustomNotify");
       } else if (BrowserApp.compatibleUrls) {
         let compatibleUrls = JSON.parse(BrowserApp.compatibleUrls);
-        for (var urlIndex = 0; urlIndex < compatibleUrls.length; urlIndex ++) {
+        for (var urlIndex = 0; urlIndex < compatibleUrls.length; urlIndex++) {
           if (host.includes(compatibleUrls[urlIndex]) < 0) {
             continue;
           }
@@ -286,7 +286,7 @@ var Reader = {
           this.pageAction.compatibleModeCallback = function(tabID) {
             GlobalEventDispatcher.sendRequest({
                   type: "CompatibleMode:Click",
-                  tabID: tabID
+                  tabID: tabID,
             });
             BrowserApp.sendTrackData("PressIcon", browser.currentURI.spec);
           };
@@ -305,21 +305,21 @@ var Reader = {
             callback: function(aChecked) {
               Messaging.sendRequest({
                 type: "CompatibleMode:Unclick",
-                tabID: tab.id
+                tabID: tab.id,
               });
               BrowserApp.sendTrackData("PressNo");
-            }
+            },
           },
           {
             label: strings.GetStringFromName("compatibleMode.allow"),
             callback: function(aChecked) {
               Messaging.sendRequest({
                 type: "CompatibleMode:Click",
-                tabID: tab.id
+                tabID: tab.id,
               });
               BrowserApp.sendTrackData("PressYes", browser.currentURI.spec);
             },
-            positive: true
+            positive: true,
           }];
           let options = {};
           NativeWindow.doorhanger.show(message, notificationID, buttons, tab.id, options);
@@ -330,7 +330,7 @@ var Reader = {
       this.pageAction.compatibleModeCallback = function(tabID) {
         Messaging.sendRequest({
             type: "CompatibleMode:Click",
-            tabID: tabID
+            tabID: tabID,
         });
         BrowserApp.sendTrackData("PressIcon", browser.currentURI.spec);
       };
@@ -338,7 +338,7 @@ var Reader = {
         title: Strings.browser.GetStringFromName("compatibleMode.enter"),
         icon: compatibleModeURL,
         clickCallback: () => this.pageAction.compatibleModeCallback(tab.id),
-        important: true
+        important: true,
       });
       this._pageActionIds.push(pageActionId);
     }
