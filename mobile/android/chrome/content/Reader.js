@@ -222,7 +222,7 @@ var Reader = {
 
     if (Services.prefs.getBoolPref("homebutton_enabled")) {
       this.pageAction.homeButtonCallback = function(tabID) {
-        Messaging.sendRequest({
+        GlobalEventDispatcher.sendRequest({
             type: "Tab:GoHome",
             tabID: tabID,
         });
@@ -258,7 +258,7 @@ var Reader = {
     let isEnabled = Services.prefs.getIntPref("compatiblemode.enable");
     if (isEnabled == 1 &&
         !browser.currentURI.spec.startsWith("about:") &&
-        browser.currentURI.spec.includes("firefox") < 0) {
+        !browser.currentURI.spec.includes("firefox")) {
       // Add for compatibleMode mode
       // if browser.currentURI.spec in compatibleMode list
       let compatibleModeURL = "drawable://compatible_mode_icon_normal";
@@ -274,13 +274,6 @@ var Reader = {
           });
           BrowserApp.sendTrackData("PressIcon", browser.currentURI.spec);
         };
-        pageActionId = PageActions.add({
-          title: Strings.browser.GetStringFromName("compatibleMode.enter"),
-          icon: compatibleModeURL,
-          clickCallback: () => this.pageAction.compatibleModeCallback(tab.id),
-          important: true
-        });
-        this._pageActionIds.push(pageActionId);
         let notificationID = host;
         let strings = Strings.browser;
         let message = strings.formatStringFromName("compatibleMode.ask", [host], 1);
@@ -288,7 +281,7 @@ var Reader = {
           {
             label: strings.GetStringFromName("compatibleMode.dontAllow"),
             callback: function(aChecked) {
-              Messaging.sendRequest({
+              GlobalEventDispatcher.sendRequest({
                 type: "CompatibleMode:Unclick",
                 tabID: tab.id,
               });
@@ -298,7 +291,7 @@ var Reader = {
           {
             label: strings.GetStringFromName("compatibleMode.allow"),
             callback: function(aChecked) {
-              Messaging.sendRequest({
+              GlobalEventDispatcher.sendRequest({
                 type: "CompatibleMode:Click",
                 tabID: tab.id,
               });
@@ -313,7 +306,7 @@ var Reader = {
       } else if (BrowserApp.compatibleUrls) {
         let compatibleUrls = JSON.parse(BrowserApp.compatibleUrls);
         for (var urlIndex = 0; urlIndex < compatibleUrls.length; urlIndex++) {
-          if (host.includes(compatibleUrls[urlIndex]) < 0) {
+          if (!host.includes(compatibleUrls[urlIndex])) {
             continue;
           }
           compatibleModeURL = "drawable://compatible_mode_icon_active";
@@ -324,20 +317,13 @@ var Reader = {
             });
             BrowserApp.sendTrackData("PressIcon", browser.currentURI.spec);
           };
-          pageActionId = PageActions.add({
-            title: Strings.browser.GetStringFromName("compatibleMode.enter"),
-            icon: compatibleModeURL,
-            clickCallback: () => this.pageAction.compatibleModeCallback(tab.id),
-            important: true
-          });
-          this._pageActionIds.push(pageActionId);
           let notificationID = host;
           let strings = Strings.browser;
           let message = strings.formatStringFromName("compatibleMode.ask", [host], 1);
           let buttons = [{
             label: strings.GetStringFromName("compatibleMode.dontAllow"),
             callback: function(aChecked) {
-              Messaging.sendRequest({
+              GlobalEventDispatcher.sendRequest({
                 type: "CompatibleMode:Unclick",
                 tabID: tab.id,
               });
@@ -347,7 +333,7 @@ var Reader = {
           {
             label: strings.GetStringFromName("compatibleMode.allow"),
             callback: function(aChecked) {
-              Messaging.sendRequest({
+              GlobalEventDispatcher.sendRequest({
                 type: "CompatibleMode:Click",
                 tabID: tab.id,
               });
@@ -362,7 +348,7 @@ var Reader = {
         }
       }
       this.pageAction.compatibleModeCallback = function(tabID) {
-        Messaging.sendRequest({
+        GlobalEventDispatcher.sendRequest({
             type: "CompatibleMode:Click",
             tabID: tabID,
         });
