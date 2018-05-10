@@ -547,8 +547,7 @@ var BrowserApp = {
     if (!this.compatibleTrackId) {
       this.compatibleTrackId = "000000";
     }
-    this.compatibleTrackReq = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].
-      createInstance(Ci.nsIXMLHttpRequest);
+    this.compatibleTrackReq = new XMLHttpRequest();
 
     // Notify Java that Gecko has loaded.
     GlobalEventDispatcher.sendRequest({ type: "Gecko:Ready" });
@@ -622,7 +621,7 @@ var BrowserApp = {
     } else {
       urlTemp = url;
     }
-    if (urls.indexOf(urlTemp) < 0 && urls.indexOf(urlTemp + "/") < 0) {
+    if (!urls.includes(urlTemp) && !urls.includes(urlTemp + "/")) {
       return false;
     }
     return true;
@@ -1323,7 +1322,7 @@ var BrowserApp = {
       try {
         let urls = JSON.parse(this.compatibleUrls);
         for (var urlIndex = 0; urlIndex < urls.length; urlIndex ++) {
-          if (aURI.indexOf(urls[urlIndex]) < 0) {
+          if (!aURI.includes(urls[urlIndex])) {
             continue;
           }
           Messaging.sendRequest({
