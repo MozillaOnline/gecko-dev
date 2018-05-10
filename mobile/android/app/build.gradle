@@ -265,6 +265,9 @@ dependencies {
     implementation project(path: ':geckoview')
     implementation project(path: ':thirdparty')
 
+    implementation files('../base/resources/drawable/ic_menu_compatible_mode.xml')
+    implementation files('../base/java/org/mozilla/gecko/compatiblemode/CompatibleModeActivity.java')
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.simpleframework:simple-http:6.0.1'
