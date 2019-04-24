@@ -818,6 +818,7 @@
     },
     "zh-CN": {
       "default": {
+        "searchDefault": "百度",
         "visibleDefaultEngines": [
           "google-b-m", "baidu", "bing", "wikipedia-zh-CN"
         ]
