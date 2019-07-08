@@ -24,6 +24,12 @@ add_task(async function() {
       ["dom.serviceWorkers.enabled", true],
     ],
   });
+
+  await SpecialPowers.pushPrefEnv({set: [
+    ["browser.storageManager.enabled", true],
+    ["dom.serviceWorkers.enabled", true],
+  ]});
+
   // Open a test site which would save into appcache
   await BrowserTestUtils.openNewForegroundTab(gBrowser, TEST_OFFLINE_URL);
   BrowserTestUtils.removeTab(gBrowser.selectedTab);
@@ -172,6 +178,12 @@ add_task(async function() {
       ["dom.serviceWorkers.enabled", true],
     ],
   });
+
+  await SpecialPowers.pushPrefEnv({set: [
+    ["browser.storageManager.enabled", true],
+    ["dom.serviceWorkers.enabled", true],
+  ]});
+
   // Register a test service worker
   await loadServiceWorkerTestPage(TEST_SERVICE_WORKER_URL);
   await openPreferencesViaOpenPreferencesAPI("privacy", { leaveOpen: true });
