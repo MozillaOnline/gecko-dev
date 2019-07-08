@@ -34,6 +34,7 @@ const test = new SearchConfigTest({
       // Should be available everywhere.
     ],
   },
+<<<<<<< HEAD
   details: [
     {
       included: [{ regions: ["us"] }],
@@ -51,6 +52,20 @@ const test = new SearchConfigTest({
         : "client=firefox-b-d",
     },
   ],
+=======
+  details: [{
+    included: [{regions: ["us"]}],
+    domain: "google.com",
+    codes: AppConstants.MOZ_APP_VERSION_DISPLAY.endsWith("esr") ?
+      "client=firefox-b-1-e" : "client=firefox-b-1-d",
+  }, {
+    excluded: [{regions: ["us"]}],
+    included: [],
+    domain: "google.com",
+    codes: AppConstants.MOZ_APP_VERSION_DISPLAY.endsWith("esr") ?
+      "client=firefox-b-e" : "client=firefox-b-d",
+  }],
+>>>>>>> 68 release to esr
 });
 
 add_task(async function setup() {
