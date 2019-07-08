@@ -18,12 +18,19 @@ function getPersistentStoragePermStatus(origin) {
 // Test listing site using quota usage or site using appcache
 // This is currently disabled because of bug 1414751.
 add_task(async function() {
+<<<<<<< HEAD
   await SpecialPowers.pushPrefEnv({
     set: [
       ["browser.storageManager.enabled", true],
       ["dom.serviceWorkers.enabled", true],
     ],
   });
+=======
+  await SpecialPowers.pushPrefEnv({set: [
+    ["browser.storageManager.enabled", true],
+    ["dom.serviceWorkers.enabled", true],
+  ]});
+>>>>>>> 68 release to esr
   // Open a test site which would save into appcache
   await BrowserTestUtils.openNewForegroundTab(gBrowser, TEST_OFFLINE_URL);
   BrowserTestUtils.removeTab(gBrowser.selectedTab);
@@ -166,12 +173,19 @@ add_task(async function() {
 
 // Test clearing service wroker through the settings panel
 add_task(async function() {
+<<<<<<< HEAD
   await SpecialPowers.pushPrefEnv({
     set: [
       ["browser.storageManager.enabled", true],
       ["dom.serviceWorkers.enabled", true],
     ],
   });
+=======
+  await SpecialPowers.pushPrefEnv({set: [
+    ["browser.storageManager.enabled", true],
+    ["dom.serviceWorkers.enabled", true],
+  ]});
+>>>>>>> 68 release to esr
   // Register a test service worker
   await loadServiceWorkerTestPage(TEST_SERVICE_WORKER_URL);
   await openPreferencesViaOpenPreferencesAPI("privacy", { leaveOpen: true });
