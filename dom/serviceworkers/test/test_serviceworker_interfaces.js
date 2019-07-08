@@ -238,6 +238,7 @@ var interfaceNamesInGlobalScope = [
   "WorkerNavigator",
   // IMPORTANT: Do not change this list without review from a DOM peer!
 ];
+
 // IMPORTANT: Do not change the list above without review from a DOM peer!
 
 function createInterfaceMap({
