@@ -1,0 +1,5 @@
+<service android:name="com.qq.e.comm.DownloadService" android:exported="false" />
+<activity android:name="com.qq.e.ads.ADActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+<activity android:name="com.qq.e.ads.PortraitADActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+<activity android:name="com.qq.e.ads.LandscapeADActivity" android:screenOrientation="landscape" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+

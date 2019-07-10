@@ -224,6 +224,7 @@ dependencies {
     implementation "com.android.support:design:$support_library_version"
     implementation "com.android.support:customtabs:$support_library_version"
     implementation "com.android.support:palette-v7:$support_library_version"
+    implementation files('../thirdparty/GDTlibs/GDTSDK.union.4.40.910.jar')
 
     // We always include support for multidexing even when we don't enable it at runtime.
     // We could conditionally include support, but we'd need

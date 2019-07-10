@@ -11,6 +11,7 @@
 include $(topsrcdir)/config/AB_rCD.mk
 
 GECKOVIEW_JARS += $(topsrcdir)/mobile/android/thirdparty/baidu-geolocation-libs/BaiduLBS_Android.jar
+GECKOVIEW_JARS += $(topsrcdir)/mobile/android/thirdparty/GDTlibs/GDTSDK.union.4.40.910.jar
 
 gradle_dir := $(topobjdir)/gradle/build/mobile/android
 

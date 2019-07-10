@@ -23,6 +23,7 @@
  -->
 #include FennecManifest_permissions.xml.in
 #include ../thirdparty/baidu-geolocation-libs/manifests/BaiduGeolocation_permissions.xml.in
+#include ../thirdparty/GDTlibs/manifests/GDT_permissions.xml.in
 
     <application android:label="@string/moz_app_displayname"
                  android:icon="@mipmap/ic_launcher"
@@ -37,6 +38,10 @@
         <meta-data android:name="com.sec.android.support.multiwindow" android:value="true"/>
 
         <meta-data android:name="android.max_aspect" android:value="2.1"/>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
 #ifdef MOZ_NATIVE_DEVICES
         <service android:name="org.mozilla.gecko.RemotePresentationService" android:exported="false"/>
@@ -75,6 +80,18 @@
                   android:launchMode="singleTask"
                   android:exported="true"
                   android:theme="@style/Gecko.App" />
+        <activity
+            android:name="org.mozilla.gecko.SplashActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <!-- Bug 1256615 / Bug 1268455: We published an .App alias and we need to maintain it
              forever.  If we don't, home screen shortcuts will disappear because the intent
@@ -87,9 +104,7 @@
                  another activity to usurp the MAIN action, so we ratchet our
                  priority up. -->
             <intent-filter android:priority="999">
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER"/>
+
                 <category android:name="android.intent.category.APP_BROWSER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -307,6 +322,7 @@
         </receiver>
 
 #include ../thirdparty/baidu-geolocation-libs/manifests/BaiduGeolocation_services.xml.in
+#include ../thirdparty/GDTlibs/manifests/GDT_services.xml.in
 #include ../services/manifests/FxAccountAndroidManifest_activities.xml.in
 
 #ifdef MOZ_CRASHREPORTER
