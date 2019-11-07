@@ -315,7 +315,7 @@ var Addons = {
     let title = document.createElement("div");
     title.id = "browse-title";
     title.className = "title";
-    title.textContent = this._getAmoTitle();
+    title.textContent = gStringBundle.GetStringFromName("addons.browseAll");
     inner.appendChild(title);
 
     outer.appendChild(inner);
