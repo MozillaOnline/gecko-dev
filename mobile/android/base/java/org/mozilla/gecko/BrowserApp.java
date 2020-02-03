@@ -43,7 +43,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -63,6 +69,7 @@ import android.view.Window;
 import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import org.mozilla.gecko.AppConstants.Versions;
@@ -91,6 +98,7 @@ import org.mozilla.gecko.distribution.DistributionStoreCallback;
 import org.mozilla.gecko.dlc.DlcStudyService;
 import org.mozilla.gecko.dlc.DlcSyncService;
 import org.mozilla.gecko.extensions.ExtensionPermissionsHelper;
+import org.mozilla.gecko.firstrun.FirstrunAnimationContainer;
 import org.mozilla.gecko.firstrun.OnboardingHelper;
 import org.mozilla.gecko.home.BrowserSearch;
 import org.mozilla.gecko.home.HomeBanner;
@@ -1118,8 +1126,56 @@ public class BrowserApp extends GeckoApp
         final SafeIntent intent = new SafeIntent(getIntent());
 
         if (!IntentUtils.getIsInAutomationFromEnvironment(intent)) {
+
+            final SharedPreferences prefs = GeckoSharedPrefs.forProfile(this);
+
+            if(prefs.getBoolean(FirstrunAnimationContainer.PREF_FIRSTRUN_ENABLED, true)) {
+                String message = "Mozilla Firefox 是一款自由开源软件，由来自世界各地成千上万的社区志愿者共同完成。以下几点您应该了解：\n"+
+                                 "Firefox 提供给您时依照的条款为 Mozilla 公共许可证（MPL）。这表示您可以使用、复制和向他人分发 Firefox。我们也非常欢迎您按自己的需要修改 Firefox 的源代码。Mozilla 公共许可证还授予您分发您自己修改过的软件版本的权利。\n" +
+                                 "您没有获得 Mozilla 基金会或其他任何一方的商标权利或许可，这包括但不限于 Firefox 的名称或标志。有关商标的其他信息在：这里。\n" +
+                                 "Firefox 的一些功能（例如崩溃报告器）使您可以向 Mozilla 提供反馈。提交反馈的同时，您授权 Mozilla 使用反馈信息改进产品、在其网站上发布反馈信息，以及分发反馈内容。\n" +
+                                 "关于我们如何使用您通过 Firefox 提交给 Mozilla 的个人信息和反馈，请参见 Firefox 隐私权政策。";
+                String messageClickable1 = "Mozilla 公共许可证（MPL）";
+                String messageClickable2 = "这里";
+                String messageClickable3 = "Firefox 隐私权政策";
+                SpannableString messageSpannable = new SpannableString(message);
+
+                ClickableSpan clickableSpan1 = new MultiClickableSpan(1,BrowserApp.this.getGeckoApplication());
+                ClickableSpan clickableSpan2 = new MultiClickableSpan(2,BrowserApp.this.getGeckoApplication());
+                ClickableSpan clickableSpan3 = new MultiClickableSpan(3,BrowserApp.this.getGeckoApplication());
+
+                messageSpannable.setSpan(clickableSpan1, message.indexOf(messageClickable1), message.indexOf(messageClickable1) + messageClickable1.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                messageSpannable.setSpan(clickableSpan2, message.indexOf(messageClickable2), message.indexOf(messageClickable2) + messageClickable2.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                messageSpannable.setSpan(clickableSpan3, message.indexOf(messageClickable3), message.indexOf(messageClickable3) + messageClickable3.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+                final AlertDialog d = new AlertDialog.Builder(this)
+                        .setPositiveButton("同意并继续", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                /*final GeckoBundle data = new GeckoBundle(2);
+                                data.putString("uri", "https://www.mozilla.org/zh-CN/privacy/firefox/");
+                                data.putString("flags", "OPEN_NEWTAB");
+                                getAppEventDispatcher().dispatch("Tab:OpenUri", data);*/
+
+                                mOnboardingHelper.checkFirstRun();
+                            }
+                        })
+                        .setNeutralButton("退出应用", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finishAndShutdown(false);
+
+                            }
+                        })
+                        .setTitle("温馨提示")
+                        .setMessage(messageSpannable)
+                        //.setMessage(Html.fromHtml("<a href=\"https://www.mozilla.org/zh-CN/privacy/firefox/\">点此查看Firefox隐私声明</a>"))
+                        .create();
+
+                d.show();
+                ((TextView)d.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+            }
+
             // We can't show the first run experience until Gecko has finished initialization (bug 1077583).
-            mOnboardingHelper.checkFirstRun();
+            //mOnboardingHelper.checkFirstRun();
         }
     }
 
