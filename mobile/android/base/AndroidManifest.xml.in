@@ -240,6 +240,9 @@
                   android:launchMode="singleTop"
                   android:theme="@style/OverlayActivity" />
 
+        <activity android:name="org.mozilla.gecko.WebViewActivity"
+                  android:theme="@style/OverlayActivity" />
+
         <receiver android:name="org.mozilla.gecko.restrictions.RestrictionProvider">
           <intent-filter>
             <action android:name="android.intent.action.GET_RESTRICTION_ENTRIES" />

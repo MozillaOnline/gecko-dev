@@ -5,15 +5,22 @@
 
 package org.mozilla.gecko.firstrun;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ViewStub;
+import android.widget.TextView;
 
+import org.mozilla.gecko.BrowserApp;
 import org.mozilla.gecko.GeckoSharedPrefs;
 import org.mozilla.gecko.GeckoThread;
 import org.mozilla.gecko.R;
@@ -24,6 +31,7 @@ import org.mozilla.gecko.distribution.Distribution;
 import org.mozilla.gecko.mma.MmaDelegate;
 import org.mozilla.gecko.mozglue.SafeIntent;
 import org.mozilla.gecko.switchboard.SwitchBoard;
+import org.mozilla.gecko.util.GeckoBundle;
 import org.mozilla.gecko.util.NetworkUtils;
 import org.mozilla.gecko.util.StrictModeContext;
 import org.mozilla.gecko.util.ThreadUtils;
