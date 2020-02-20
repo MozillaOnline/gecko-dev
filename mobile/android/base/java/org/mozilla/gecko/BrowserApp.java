@@ -957,6 +957,9 @@ public class BrowserApp extends GeckoApp
 
         // We want to get an understanding of how our user base is spread (bug 1221646).
         final String installerPackageName = getPackageManager().getInstallerPackageName(getPackageName());
+        final GeckoBundle args = new GeckoBundle(1);
+        args.putString("installer", installerPackageName);
+        EventDispatcher.getInstance().dispatch("Mococn:Installer", args);
         Telemetry.sendUIEvent(TelemetryContract.Event.LAUNCH, TelemetryContract.Method.SYSTEM, "installer_" + installerPackageName);
     }
 

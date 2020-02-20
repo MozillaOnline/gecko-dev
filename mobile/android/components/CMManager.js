@@ -4,6 +4,8 @@
 
 var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 var {XPCOMUtils} = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+var {EventDispatcher} = ChromeUtils.import("resource://gre/modules/Messaging.jsm");
+var GlobalEventDispatcher = EventDispatcher.instance;
 //Cu.importGlobalProperties(["XMLHttpRequest"]);
 
 function CMManager() {}
@@ -33,6 +35,8 @@ CMManager.prototype = {
   // Tracking channel ID got from the preference extensions.cmmanager.channelid
   _channelId: "firefox.mobile",
 
+  _installerPackageName: null,
+
   // To show the log with logcat, set _debug to true and run the following
   // commands:
   // adb shell stop
@@ -50,6 +54,10 @@ CMManager.prototype = {
     if (this._debug) {
       this.log("Setup\n");
     }
+
+    GlobalEventDispatcher.registerListener(this, [
+          "Mococn:Installer",
+        ]);
 
     this._locale = Cc["@mozilla.org/chrome/chrome-registry;1"]
       .getService(Ci.nsIXULChromeRegistry).getSelectedLocale("global");
@@ -87,6 +95,15 @@ CMManager.prototype = {
     progress.addProgressListener(this, Ci.nsIWebProgress.NOTIFY_LOCATION);
 
     this.sendTrackingHttpRequest("start");
+  },
+
+  onEvent: function(event, data, callback) {
+    switch (event) {
+          case "Mococn:Installer": {
+            this._installerPackageName = data.installer
+            break;
+          }
+    }
   },
 
   /*
@@ -136,14 +153,15 @@ CMManager.prototype = {
 
     let req = new XMLHttpRequest();
     let url = StringUtils.format(
-                  "{0}key={1}&channelid={2}&type={3}&version={4}&locale={5}&t={6}",
+                  "{0}key={1}&channelid={2}&type={3}&version={4}&locale={5}&t={6}&installer={7}",
                   this._serverUrl,
                   this._trackingId,
                   this._channelId,
                   type,
                   Services.appinfo.version,
                   this._locale,
-                  Date.now().toString()
+                  Date.now().toString(),
+                  this._installerPackageName
                   );
     req.open("GET", url, true);
     if (this._debug) {
