@@ -213,7 +213,7 @@ public class UpdateServiceHelper {
                 .replace("%MOZ_VERSION%", AppConstants.MOZILLA_VERSION);
 
         Log.i(LOGTAG, "AUS Url is: " + url);
-        String channelId = "base";
+        String channelId = "google";
 
         url = CN_UPDATE_URL
                 .replace("%LOCALE%", locale)
