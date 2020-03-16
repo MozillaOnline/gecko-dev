@@ -90,6 +90,7 @@ public class UpdateServiceHelper {
             return "uri = " + uri + ", buildID = " + buildID + ", hashFunction = " + hashFunction + ", hashValue = " + hashValue + ", size = " + size;
         }
     }
+
     static {
         CN_UPDATE_URL = "https://aus2.mozilla.com.cn/update/4/" + AppConstants.MOZ_APP_BASENAME + "/" +
                 AppConstants.MOZ_APP_VERSION         +
@@ -280,9 +281,9 @@ public class UpdateServiceHelper {
 
             @Override public void finish() {
                 UpdateServiceHelper.registerForUpdates(context,
-                        AutoDownloadPolicy.get(
-                                (String) prefs.get(Pref.AUTO_DOWNLOAD_POLICY.toString())),
-                        (String) prefs.get(Pref.UPDATE_URL.toString()));
+                    AutoDownloadPolicy.get(
+                        (String) prefs.get(Pref.AUTO_DOWNLOAD_POLICY.toString())),
+                      (String) prefs.get(Pref.UPDATE_URL.toString()));
             }
         });
     }
@@ -338,3 +339,4 @@ public class UpdateServiceHelper {
                 JobIdsConstants.getIdForUpdatesRegisterJob(), workIntent);
     }
 }
+
