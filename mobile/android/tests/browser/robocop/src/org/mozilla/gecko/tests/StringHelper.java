@@ -230,8 +230,12 @@ public class StringHelper {
     public final String FAQS_LABEL;
 
 
-    // Aswesomescreen content update settings
+    // Update Settings
     public final String AUTOMATIC_UPDATES;
+    public final String OVER_WIFI_OPTION;
+    public final String DOWNLOAD_UPDATES_AUTO;
+    public final String ALWAYS;
+    public final String NEVER;
 
     // Restore Tabs Settings
     public final String DONT_RESTORE_TABS;
@@ -406,8 +410,12 @@ public class StringHelper {
         // Mozilla Firefox Settings
         FAQS_LABEL = res.getString(R.string.pref_vendor_faqs);
 
-        // Aswesomescreen content update settings
+        // Update Settings
         AUTOMATIC_UPDATES = res.getString(R.string.pref_home_updates);
+        OVER_WIFI_OPTION = res.getString(R.string.pref_update_autodownload_wifi);
+        DOWNLOAD_UPDATES_AUTO = res.getString(R.string.pref_update_autodownload);
+        ALWAYS = res.getString(R.string.pref_update_autodownload_enabled);
+        NEVER = res.getString(R.string.pref_update_autodownload_disabled);
 
         // Restore Tabs Settings
         DONT_RESTORE_TABS = res.getString(R.string.pref_restore_quit);
